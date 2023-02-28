@@ -226,9 +226,10 @@ class RequestHandler:
                                         "type": None, "code": 200,
                                         "content": None
                                     }
-                                    self.online_users[recipient][1].write(
-                                        (json.dumps(sendingMessageRequest) + "\0").encode()
-                                    ); await self.online_users[recipient][1].drain()
+                                    if sender_username != recipient:
+                                        self.online_users[recipient][1].write(
+                                            (json.dumps(sendingMessageRequest) + "\0").encode()
+                                        ); await self.online_users[recipient][1].drain()
 
                                 except KeyError:
                                     clientResponse = badRequest
