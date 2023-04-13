@@ -256,7 +256,7 @@ class EventLoop(object):
                     self.lockRequest = False
                     if self.login:
                         for messageRequest in self.messageNotSend:
-                            self.requestHandler(self.secondSocket, messageRequest)
+                            self.requestHandler(self.firstSocket, messageRequest)
                             time.sleep(0.01)
 
                         self.messageNotSend.clear()
