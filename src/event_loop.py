@@ -204,18 +204,21 @@ class EventLoop(object):
                                 raise UserNotInFriend
 
                         except (ScreenManagerException, UserNotInFriend):
-                            self.beforeIterate.append(
-                                {
-                                    "type": "receiveMessage",
-                                    "content": {
-                                        "message": message_text,
-                                        "chatName": sender_name
-                                    }
-                                }
-                            )
                             self.appendChatScreen(sender_name)
                             if sender_name not in self.ids:
+                                self.beforeIterate.append(
+                                    {
+                                        "type": "receiveMessage",
+                                        "content": {
+                                            "message": message_text,
+                                            "chatName": sender_name
+                                        }
+                                    }
+                                )
                                 self.appendUserInFriend(sender_name)
+
+                            else:
+                                self.receiveMessage(message_text, sender_name)
 
                 case types_.listMessageData_t:
                     self.lockRequest = False
