@@ -118,7 +118,23 @@ class EventLoop(object):
                         if unsent_messages:
                             for sender_name, messages in unsent_messages.items():
                                 for message in messages:
-                                    try: self.receiveMessage(message, sender_name)
+                                    try:
+                                        if sender_name not in self.ids:
+                                            self.beforeIterate.append(
+                                                {
+                                                    "type": "receiveMessage",
+                                                    "content": {
+                                                        "message": message,
+                                                        "chatName": sender_name
+                                                    }
+                                                }
+                                            )
+                                            self.appendUserInFriend(sender_name)
+                                            self.appendChatScreen(sender_name)
+
+                                        else:
+                                            self.receiveMessage(message, sender_name)
+
                                     except ScreenManagerException:
                                         self.appendChatScreen(sender_name)
                                         self.receiveMessage(message, sender_name)
