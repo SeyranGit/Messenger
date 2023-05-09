@@ -41,7 +41,7 @@ class MessengerApp(MDApp, EventLoop, GUIInterfaceFunctions):
 
     def build(self):
         Clock.schedule_interval(self.eventHandler, 1 / 30)
-        self.startServerEventLoop()
+        self.createServerConnection()
 
         self.icon = "../assets/images/icon.png"
         self.screen_manager = ScreenManager()
