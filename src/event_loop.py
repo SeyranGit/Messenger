@@ -330,6 +330,6 @@ class EventLoop(object):
             while not self.break_loop:
                 self.connectionResponsHandler(socket)
 
-    def startServerEventLoop(self):
+    def createServerConnection(self):
         threading.Thread(target=self._startServerEventLoop,
             args=("localhost", 5000), daemon=True).start()
