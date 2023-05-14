@@ -53,7 +53,7 @@ def errorСhecking(method):
                 events.append(connectionErrorEvent)
 
             if not socketInstance.connectionRecoveryThread:
-                instance._startServerEventLoop(*socketInstance.hp)
+                instance._createServerConnection(*socketInstance.hp)
 
     return _errorChecking
 
@@ -310,7 +310,7 @@ class EventLoop(object):
 
                 case None: events.remove(event)
 
-    def _startServerEventLoop(self, host, port):
+    def _createServerConnection(self, host, port):
         self.break_loop = False
         self.login = False
         self.beforeIterate = []
@@ -331,5 +331,5 @@ class EventLoop(object):
                 self.connectionResponsHandler(socket)
 
     def createServerConnection(self):
-        threading.Thread(target=self._startServerEventLoop,
+        threading.Thread(target=self._createServerConnection,
             args=("localhost", 5000), daemon=True).start()
