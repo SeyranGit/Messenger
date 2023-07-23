@@ -159,7 +159,12 @@ class MessengerApp(MDApp, EventLoop, GUIInterfaceFunctions):
         messageWidget.size_hint_x, messageWidget.halign = selectWidgetSize(message)
         messageWidget.text, messageWidget.pos_hint = message, {"x": .02}
 
-        self.apppendMessageInMessageList(chatName, chatName, messageWidget)
+        self.apppendMessageInMessageList(
+            chatName,
+            chatName,
+            messageWidget,
+            recv=True
+        )
 
     def searchUser(self, auto_login=False):
         self.searchusername = self.screen_manager.get_screen(
