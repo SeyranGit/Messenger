@@ -102,16 +102,16 @@ class GUIInterfaceFunctions(Builder):
                 self.screen_manager.get_screen(
                     'main_screen').ids.listusers.add_widget(widget)
 
-    def apppendMessageInMessageList(self, chatName, senderName , messageWidget):
+    def apppendMessageInMessageList(self, chatName, senderName , messageWidget, recv=False):
         self.ids[chatName][0].text = f"{senderName}: {messageWidget.text}"
 
         self.screen_manager.get_screen(
             f"chat|{chatName}"
         ).ids.message_list.add_widget(messageWidget)
-
-        self.screen_manager.get_screen(
-            f"chat|{chatName}"
-        ).ids.sendmessage_textfield.text = ''
+        if not recv:
+            self.screen_manager.get_screen(
+                f"chat|{chatName}"
+            ).ids.sendmessage_textfield.text = ''
 
     def appendChatScreen(self, username):
         if username not in self.loads:
